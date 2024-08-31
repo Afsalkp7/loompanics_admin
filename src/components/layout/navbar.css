@@ -1,0 +1,107 @@
+:root {
+    --navBg: #000000;
+  }
+  
+  .navbar {
+    background-color: var(--navBg);
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  .menu-bars {
+    margin-left: 1rem;
+    font-size: 2rem;
+    background: none;
+    color: #f5f5f5;
+  }
+  
+  .nav-menu {
+    background-color: var(--navBg);
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+    overflow-y: scroll;
+  }
+  
+  .nav-menu.active {
+    left: 0;
+    transition: 350ms;
+  }
+  
+  .nav-text {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 8px 0 8px 16px;
+    list-style: none;
+    height: 60px;
+  }
+  
+  .nav-text a {
+    text-decoration: none;
+    color: #f5f5f5;
+    font-size: 18px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+  }
+  
+  .nav-text a:hover {
+    background-color: #1a83ff;
+  }
+  
+  .nav-menu-items {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .navbar-toggle {
+    background-color: var(--navBg);
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  span {
+    margin-left: 16px;
+  }
+  
+  .menu-bars img{
+    width: 70px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 100px;
+  }
+
+::-webkit-scrollbar {
+    width: 3px; /* Adjust the width for vertical scrollbars */
+    height: 6px; /* Adjust the height for horizontal scrollbars */
+  }
+  
+  /* Track (background of the scrollbar) */
+  ::-webkit-scrollbar-track {
+    background: transparent; /* You can set a color if you want, or leave it transparent */
+  }
+  
+  /* Thumb (the draggable part of the scrollbar) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #000000; /* Change to the color you prefer */
+    border-radius: 10px; /* Makes the scrollbar rounded */
+  }
+  
+  /* Thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darkens the thumb on hover */
+  }
