@@ -1,0 +1,70 @@
+.authFormMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0px; 
+    padding-bottom: 0px;
+    background-image: url("../../../assets/login_bg.jpeg");
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .authForm {
+    text-align: center;
+    padding: 50px;
+    padding-top: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  @media (min-width: 768px) {
+    .authForm {
+      padding: 100px;
+      padding-top: 30px;
+    }
+    .authFormMain{
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+  }
+  
+  .formLogo {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .formLogo img {
+    width: 120px;
+  }
+  
+  .companyName span,
+  .greeting span,
+  .message span {
+    display: block;
+    font-size: 1.2em;
+  }
+  
+  .companyName span {
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  
+  .greeting span {
+    font-size: 1.3em; 
+  }
+  
+  
+  
+  
+  .greeting span {
+    
+    font-size: 25px;
+    font-weight: lighter;
+  }
+  
+  .message span {
+    font-size: 16px;
+    color: #ABABAB;
+    padding-bottom: 10px;
+  }
+  
