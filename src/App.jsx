@@ -8,6 +8,7 @@ import PublicRoute from './components/registerAndLogin/privateRoute/PublicRoute'
 import Dashboard from './components/dashboard/dashboard/Dashboard';
 import Customers from './components/customers/Customers';
 import UserDetail from './components/customers/UserDetail';
+import NotFoundPage from './components/notfound/Notfound';
 
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
              
             }
              />
-             <Route path="*" element={<h1 >404 not found</h1>} />
+             <Route path="*" element={<NotFoundPage />} />
           
         </Route>
       </Routes>
