@@ -50,7 +50,7 @@ function ChangePassword({
   const handleSubmit = async (values, actions) => {
     setLoading(true);
     try {
-      const response = await API.put("/auth/password", {
+      const response = await API.put("/adminAuth/password", {
         email,
         password: values.password,
         confirmPassword: values.confirmPassword,

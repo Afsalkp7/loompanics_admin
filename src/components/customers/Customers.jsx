@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../utils/api.js'; // Adjust the import path to your API instance
-import './customer.css'; // Import the CSS file for styling
-import { FaBan, FaEye } from 'react-icons/fa';
+import API from '../../utils/api.js';
+import './customer.css';
+import { FaBan, FaEye, FaUnlock } from 'react-icons/fa'; // FaUnlock for the unblock icon
+import { useNavigate } from 'react-router-dom';
 
 const Customers = () => {
-  const [customers, setCustomers] = useState([]); // State to hold the list of customers
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(null); // State to hold the selected customer for blocking/unblocking
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+  const [actionType, setActionType] = useState(''); // State to track block or unblock action
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to fetch customer data from the API
     const fetchCustomers = async () => {
       try {
-        // Using the configured API instance for the request
-        const response = await API.get('/users'); // Endpoint relative to the baseURL set in the API instance
-        setCustomers(response.data); // Update state with fetched data
-        setLoading(false); // Set loading to false after data is loaded
+        const response = await API.get('/users');
+        setCustomers(response.data);
+        setLoading(false);
       } catch (err) {
         console.error('Error fetching customers:', err);
-        setError('Failed to fetch customer data'); // Set error message
-        setLoading(false); // Stop loading when error occurs
+        setError('Failed to fetch customer data');
+        setLoading(false);
       }
     };
 
-    fetchCustomers(); // Call the fetch function on component mount
-  }, []); // Empty dependency array ensures this runs only on component mount
+    fetchCustomers();
+  }, []);
 
-   // Function to generate a random color
-   const getRandomColor = () => {
+  const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
@@ -36,18 +38,43 @@ const Customers = () => {
     return color;
   };
 
-  // Handlers for action items
   const handleView = (id) => {
-    // Implement view functionality
-    console.log('View customer with ID:', id);
+    navigate(`/users/${id}`);
   };
 
-  const handleBlock = (id) => {
-    // Implement block functionality
-    console.log('Block customer with ID:', id);
+  // Function to open the modal and set the selected customer and action type
+  const openBlockModal = (customer, type) => {
+    setSelectedCustomer(customer);
+    setActionType(type);
+    setIsModalOpen(true);
   };
 
-  // Render loading, error, or customer list based on state
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedCustomer(null);
+  };
+
+  // Function to toggle block/unblock the customer
+  const handleToggleBlock = async () => {
+    if (!selectedCustomer) return;
+    try {
+      await API.put(`/users/${selectedCustomer._id}`);
+      setCustomers((prevCustomers) =>
+        prevCustomers.map((customer) =>
+          customer._id === selectedCustomer._id
+            ? { ...customer, isBlocked: !customer.isBlocked }
+            : customer
+        )
+      );
+      
+      closeModal();
+    } catch (err) {
+      console.error('Error toggling block status:', err);
+      alert('Failed to change the block status of the user.');
+    }
+  };
+
   return (
     <div className="customers-container">
       <h1 className="customers-title">Customers</h1>
@@ -79,29 +106,59 @@ const Customers = () => {
                       {customer.username.split('').slice(0, 2).join('')}
                     </div>
                   </td>
-                  <td>{customer._id.split("").slice(20).join('')}</td>
+                  <td>{customer._id.split('').slice(20).join('')}</td>
                   <td>{customer.username}</td>
                   <td>{customer.email}</td>
                   <td>{customer.phoneNumber}</td>
                   <td>{customer.isMember ? 'Yes' : 'No'}</td>
                   <td>{customer.isVerified ? 'Yes' : 'No'}</td>
-                  <td> <button
+                  <td>
+                    <button
                       className="action-button view"
                       onClick={() => handleView(customer._id)}
                     >
                       <FaEye />
                     </button>
-                    <button
-                      className="action-button block"
-                      onClick={() => handleBlock(customer._id)}
-                    >
-                      <FaBan />
-                    </button></td>
-                  
+                    {customer.isBlocked ? (
+                      <button
+                        className="action-button unblock"
+                        onClick={() => openBlockModal(customer, 'unblock')}
+                      >
+                        <FaUnlock />
+                      </button>
+                    ) : (
+                      <button
+                        className="action-button block"
+                        onClick={() => openBlockModal(customer, 'block')}
+                      >
+                        <FaBan />
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Block/Unblock Confirmation Modal */}
+      {isModalOpen && selectedCustomer && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>{actionType === 'block' ? 'Block User' : 'Unblock User'}</h3>
+            <p>
+              Are you sure you want to {actionType} {selectedCustomer.username}?
+            </p>
+            <div className="modal-actions">
+              <button className="confirm-button" onClick={handleToggleBlock}>
+                {actionType === 'block' ? 'Block User' : 'Unblock User'}
+              </button>
+              <button className="cancel-button" onClick={closeModal}>
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

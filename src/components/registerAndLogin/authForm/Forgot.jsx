@@ -16,7 +16,7 @@ function Forgot({
   const handleSubmit = async () => {
     try {
       // Send request to forgot password API
-      const response = await API.post('/auth/forgot', { email: localEmail });
+      const response = await API.post('/adminAuth/forgot', { email: localEmail });
 
       // Handle successful response
       if (response.status === 200) {

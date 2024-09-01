@@ -37,7 +37,7 @@ export default function OtpBox({
     setLoading(true);
     try {
       const response = await API.post(
-        "/auth/verify-otp",
+        "/adminAuth/verify-otp",
         {
           email,
           otp,

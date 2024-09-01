@@ -7,6 +7,7 @@ import PrivateRoute from './components/registerAndLogin/privateRoute/PrivateRout
 import PublicRoute from './components/registerAndLogin/privateRoute/PublicRoute';
 import Dashboard from './components/dashboard/dashboard/Dashboard';
 import Customers from './components/customers/Customers';
+import UserDetail from './components/customers/UserDetail';
 
 
 function App() {
@@ -35,6 +36,16 @@ function App() {
                 
             }
           />
+          <Route
+            path="/users/:_id"
+            element={
+
+              <PrivateRoute >
+                <UserDetail /> 
+              </PrivateRoute>
+                
+            }
+          />
           <Route 
             path="/login" 
             element={
@@ -45,6 +56,7 @@ function App() {
              
             }
              />
+             <Route path="*" element={<h1 >404 not found</h1>} />
           
         </Route>
       </Routes>
