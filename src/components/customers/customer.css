@@ -1,0 +1,119 @@
+/* Container styling */
+.customers-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Title styling */
+  .customers-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Loading and error message styling */
+  .loading-message,
+  .error-message {
+    color: #555;
+    font-size: 16px;
+  }
+  
+  /* Error message specific styling */
+  .error-message {
+    color: red;
+  }
+  
+  /* Table container styling */
+  .table-container {
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table styling */
+  .customers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  /* Table header styling */
+  .customers-table thead th {
+    background-color: #f1f1f1;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 2px solid #ddd;
+    color: #555;
+  }
+  
+  /* Table row and cell styling */
+  .customers-table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .customers-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .customers-table tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Table action buttons */
+.action-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #007bff; /* Adjust color as needed */
+    margin-right: 10px;
+    transition: color 0.3s;
+  }
+  
+  .action-button:hover {
+    color: #0056b3; /* Adjust hover color as needed */
+  }
+  
+  /* Specific styles for view and block buttons */
+  .action-button.view {
+    color: #074215; /* Green for view */
+  }
+  
+  .action-button.block {
+    color: #741b24; /* Red for block */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .customers-title {
+      font-size: 20px;
+    }
+  
+    .customers-table thead th,
+    .customers-table tbody td {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+  

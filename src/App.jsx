@@ -6,6 +6,7 @@ import UserAuth from './components/registerAndLogin/userAuth/UserAuth';
 import PrivateRoute from './components/registerAndLogin/privateRoute/PrivateRoute';
 import PublicRoute from './components/registerAndLogin/privateRoute/PublicRoute';
 import Dashboard from './components/dashboard/dashboard/Dashboard';
+import Customers from './components/customers/Customers';
 
 
 function App() {
@@ -20,6 +21,16 @@ function App() {
 
               <PrivateRoute >
                 <Dashboard /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/users"
+            element={
+
+              <PrivateRoute >
+                <Customers /> 
               </PrivateRoute>
                 
             }
