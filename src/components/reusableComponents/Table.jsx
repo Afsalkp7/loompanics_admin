@@ -10,7 +10,7 @@ const Table = ({ columns, data, renderActions }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white">
-        <thead className="bg-gray-200">
+        <thead className="bg-gray-00">
           <tr>
             {columns.map((column) => (
               <th key={column.key} className="py-2 px-4 text-left">

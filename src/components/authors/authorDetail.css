@@ -1,0 +1,171 @@
+.user-detail-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+  }
+  
+  .user-hero {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .name-logo {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+  }
+  
+  .user-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .user-main {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .user-info {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .user-info p {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  
+  .user-accordion {
+    flex: 1;
+  }
+  
+  .accordion-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .accordion-title {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background: #f1f1f1;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .accordion-content {
+    padding: 10px;
+    display: none;
+    background-color: #fff;
+  }
+  
+  .accordion-content p {
+    margin: 5px 0;
+  }
+  
+  .accordion-item .accordion-title:focus + .accordion-content,
+  .accordion-item .accordion-title:active + .accordion-content {
+    display: block;
+  }
+
+  .message-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #000000;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;;
+    transition: background-color 0.3s;
+    margin-left: 20px;
+  }
+  
+  .message-button:hover {
+    background-color: #00000086;
+  }
+  
+  .back-button {
+    padding: 8px 16px;
+    background-color: #000000;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .back-button:hover {
+    background-color: #00000086;
+  }
+
+  .edit-button {
+    margin : 0 20px 0 20px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .cancel-button,
+  .confirm-delete-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .cancel-button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .confirm-delete-button {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  

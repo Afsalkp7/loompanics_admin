@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../utils/api.js';
 import './customer.css';
-import { FaBan, FaEye, FaUnlock } from 'react-icons/fa'; // FaUnlock for the unblock icon
+import { FaBan, FaEye, FaUnlock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedCustomer, setSelectedCustomer] = useState(null); // State to hold the selected customer for blocking/unblocking
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
-  const [actionType, setActionType] = useState(''); // State to track block or unblock action
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [actionType, setActionType] = useState('');
+  const [currentPage, setCurrentPage] = useState(1); // State for current page
+  const [itemsPerPage] = useState(10); // Items per page
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,20 +44,17 @@ const Customers = () => {
     navigate(`/users/${id}`);
   };
 
-  // Function to open the modal and set the selected customer and action type
   const openBlockModal = (customer, type) => {
     setSelectedCustomer(customer);
     setActionType(type);
     setIsModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedCustomer(null);
   };
 
-  // Function to toggle block/unblock the customer
   const handleToggleBlock = async () => {
     if (!selectedCustomer) return;
     try {
@@ -67,12 +66,21 @@ const Customers = () => {
             : customer
         )
       );
-      
       closeModal();
     } catch (err) {
       console.error('Error toggling block status:', err);
       alert('Failed to change the block status of the user.');
     }
+  };
+
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCustomers = customers.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(customers.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -96,7 +104,7 @@ const Customers = () => {
               </tr>
             </thead>
             <tbody>
-              {customers.map((customer) => (
+              {currentCustomers.map((customer) => (
                 <tr key={customer._id}>
                   <td>
                     <div
@@ -139,6 +147,21 @@ const Customers = () => {
               ))}
             </tbody>
           </table>
+
+          {/* Pagination Controls */}
+          <div className="pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                className={`pagination-button ${
+                  currentPage === index + 1 ? 'active' : ''
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

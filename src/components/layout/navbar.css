@@ -8,6 +8,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    position: relative;
   }
   
   .menu-bars {
@@ -28,6 +29,7 @@
     left: -100%;
     transition: 850ms;
     overflow-y: scroll;
+    z-index: 10;
   }
   
   .nav-menu.active {

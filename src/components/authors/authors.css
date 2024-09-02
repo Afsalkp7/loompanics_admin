@@ -234,3 +234,34 @@
     }
   }
   
+  .authorImage{
+    border-radius: 30px;
+  }
+  .customers-container {
+    position: relative;
+  }
+  
+  .add-author-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #000000; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-author-button:hover {
+    background-color: #0000009d; /* Darker blue on hover */
+  }
+  
+  .add-author-button svg {
+    margin-right: 8px;
+  }
+  

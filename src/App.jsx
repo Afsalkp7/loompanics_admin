@@ -9,6 +9,9 @@ import Dashboard from './components/dashboard/dashboard/Dashboard';
 import Customers from './components/customers/Customers';
 import UserDetail from './components/customers/UserDetail';
 import NotFoundPage from './components/notfound/Notfound';
+import Authors from './components/authors/Authors';
+import AddAuthor from './components/authors/AddAuthor';
+import AuthorDetail from './components/authors/AuthorDetail';
 
 
 function App() {
@@ -33,6 +36,36 @@ function App() {
 
               <PrivateRoute >
                 <Customers /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/authors"
+            element={
+
+              <PrivateRoute >
+                <Authors /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/add-author"
+            element={
+
+              <PrivateRoute >
+                <AddAuthor /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/authors/:_id"
+            element={
+
+              <PrivateRoute >
+                <AuthorDetail /> 
               </PrivateRoute>
                 
             }
