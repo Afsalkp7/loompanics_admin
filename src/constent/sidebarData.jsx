@@ -7,6 +7,9 @@ import { IoLibrary } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { IoHome } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
+import { BiCategory } from "react-icons/bi";
+import { SiGradleplaypublisher } from "react-icons/si";
+
 
 // Correct use of JSX in a .jsx file
 export const SidebarData = [
@@ -32,6 +35,18 @@ export const SidebarData = [
     title: "Authors",
     path: "/authors",
     icon: <PiPenNibStraightFill />,
+    cName: "nav-text",
+  },
+  {
+    title: "Categories",
+    path: "/categories",
+    icon: <BiCategory />,
+    cName: "nav-text",
+  },
+  {
+    title: "Publishers",
+    path: "/publishers",
+    icon: <SiGradleplaypublisher />,
     cName: "nav-text",
   },
   {

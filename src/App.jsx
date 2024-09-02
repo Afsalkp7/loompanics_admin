@@ -12,6 +12,8 @@ import NotFoundPage from './components/notfound/Notfound';
 import Authors from './components/authors/Authors';
 import AddAuthor from './components/authors/AddAuthor';
 import AuthorDetail from './components/authors/AuthorDetail';
+import Categories from './components/categories/Categories';
+import CategoryDetail from './components/categories/CategoryDetail';
 
 
 function App() {
@@ -76,6 +78,26 @@ function App() {
 
               <PrivateRoute >
                 <UserDetail /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+
+              <PrivateRoute >
+                <Categories /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/categories/:_id"
+            element={
+
+              <PrivateRoute >
+                <CategoryDetail /> 
               </PrivateRoute>
                 
             }
