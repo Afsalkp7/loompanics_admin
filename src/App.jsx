@@ -14,6 +14,8 @@ import AddAuthor from './components/authors/AddAuthor';
 import AuthorDetail from './components/authors/AuthorDetail';
 import Categories from './components/categories/Categories';
 import CategoryDetail from './components/categories/CategoryDetail';
+import Publishers from './components/publishers/Publishers';
+import PublisherDetail from './components/publishers/PublisherDetail';
 
 
 function App() {
@@ -88,6 +90,26 @@ function App() {
 
               <PrivateRoute >
                 <Categories /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/publishers"
+            element={
+
+              <PrivateRoute >
+                <Publishers /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/publishers/:_id"
+            element={
+
+              <PrivateRoute >
+                <PublisherDetail /> 
               </PrivateRoute>
                 
             }
