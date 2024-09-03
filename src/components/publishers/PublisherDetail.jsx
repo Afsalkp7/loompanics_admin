@@ -6,33 +6,120 @@ import './publisherDetail.css';
 import { FaPenSquare, FaTrash } from 'react-icons/fa';
 
 // Reusable Edit Modal Component
+// const EditPublisherModal = ({ isOpen, onClose, publisher, onSave }) => {
+//   const [publisherName, setPublisherName] = useState(publisher?.publisherName || '');
+//   const [publisherAddress, setPublisherAddress] = useState(publisher?.publisherAddress || '');
+//   const [publisherUrl, setPublisherUrl] = useState(publisher?.publisherUrl || '');
+
+//   useEffect(() => {
+//     if (publisher) {
+//       setPublisherName(publisher.publisherName);
+//       setPublisherAddress(publisher.publisherAddress);
+//       setPublisherUrl(publisher.publisherUrl)
+//     }
+//   }, [publisher]);
+
+//   const handleFormSubmit = async (e) => {
+//     e.preventDefault();
+
+//     // Update the category details
+//     try {
+//       await API.put(`/publishers/${publisher._id}`, {
+//         publisherName,
+//         publisherAddress,
+//         publisherUrl
+//       });
+//       onSave(); // Call onSave to refresh the category details
+//       onClose(); // Close the modal
+//     } catch (err) {
+//       console.error('Error updating category:', err);
+//     }
+//   };
+
+//   if (!isOpen) return null;
+
+//   return (
+//     <div className="modal-overlay">
+//       <div className="modal-content">
+//         <h3>Edit Publisher</h3>
+//         <form onSubmit={handleFormSubmit}>
+//           <div className="form-group">
+//             <label htmlFor="categoryName">Publisher Name</label>
+//             <input
+//               type="text"
+//               id="categoryName"
+//               value={publisherName}
+//               onChange={(e) => setPublisherName(e.target.value)}
+//               required
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="description">Publisher address</label>
+//             <textarea
+//               id="description"
+//               value={publisherAddress}
+//               onChange={(e) => setPublisherAddress(e.target.value)}
+//               required
+//             ></textarea>
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="categoryName">Publisher Url</label>
+//             <input
+//               type="text"
+//               id="categoryName"
+//               value={publisherUrl}
+//               onChange={(e) => setPublisherUrl(e.target.value)}
+//               required
+//             />
+//           </div>
+//           <div className="form-actions">
+//             <button type="button" onClick={onClose} className="cancel-button">
+//               Cancel
+//             </button>
+//             <button type="submit" className="submit-button">
+//               Save Changes
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
 const EditPublisherModal = ({ isOpen, onClose, publisher, onSave }) => {
   const [publisherName, setPublisherName] = useState(publisher?.publisherName || '');
   const [publisherAddress, setPublisherAddress] = useState(publisher?.publisherAddress || '');
   const [publisherUrl, setPublisherUrl] = useState(publisher?.publisherUrl || '');
+  const [publisherLogo, setPublisherLogo] = useState(null);
 
   useEffect(() => {
     if (publisher) {
       setPublisherName(publisher.publisherName);
       setPublisherAddress(publisher.publisherAddress);
-      setPublisherUrl(publisher.publisherUrl)
+      setPublisherUrl(publisher.publisherUrl);
+      setPublisherLogo(null); // Reset logo state if necessary
     }
   }, [publisher]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    
+    const formData = new FormData();
+    formData.append('publisherName', publisherName);
+    formData.append('publisherAddress', publisherAddress);
+    formData.append('publisherUrl', publisherUrl);
+    if (publisherLogo) {
+      formData.append('publisherLogo', publisherLogo);
+    }
 
-    // Update the category details
     try {
-      await API.put(`/publishers/${publisher._id}`, {
-        publisherName,
-        publisherAddress,
-        publisherUrl
+      await API.put(`/publishers/${publisher._id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      onSave(); // Call onSave to refresh the category details
+      onSave(); // Refresh the details
       onClose(); // Close the modal
     } catch (err) {
-      console.error('Error updating category:', err);
+      console.error('Error updating publisher:', err);
     }
   };
 
@@ -44,32 +131,41 @@ const EditPublisherModal = ({ isOpen, onClose, publisher, onSave }) => {
         <h3>Edit Publisher</h3>
         <form onSubmit={handleFormSubmit}>
           <div className="form-group">
-            <label htmlFor="categoryName">Publisher Name</label>
+            <label htmlFor="publisherName">Publisher Name</label>
             <input
               type="text"
-              id="categoryName"
+              id="publisherName"
               value={publisherName}
               onChange={(e) => setPublisherName(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="description">Publisher address</label>
+            <label htmlFor="publisherAddress">Publisher Address</label>
             <textarea
-              id="description"
+              id="publisherAddress"
               value={publisherAddress}
               onChange={(e) => setPublisherAddress(e.target.value)}
               required
             ></textarea>
           </div>
           <div className="form-group">
-            <label htmlFor="categoryName">Publisher Url</label>
+            <label htmlFor="publisherUrl">Publisher URL</label>
             <input
               type="text"
-              id="categoryName"
+              id="publisherUrl"
               value={publisherUrl}
               onChange={(e) => setPublisherUrl(e.target.value)}
               required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="publisherLogo">Publisher Logo</label>
+            <input
+              type="file"
+              id="publisherLogo"
+              onChange={(e) => setPublisherLogo(e.target.files[0])}
+              accept="image/*"
             />
           </div>
           <div className="form-actions">
@@ -85,6 +181,7 @@ const EditPublisherModal = ({ isOpen, onClose, publisher, onSave }) => {
     </div>
   );
 };
+
 
 // Reusable Delete Confirmation Modal Component
 const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
@@ -164,7 +261,7 @@ const PublisherDetail = () => {
         <div className="user-detail-content">
           <div className="user-hero">
             <div className="name-logo" style={{ backgroundColor: getRandomColor() }}>
-              {publisher.publisherName.split('').slice(0, 2).join('')}
+              {publisher.publisherLogo ? (<img src={publisher.publisherLogo} />) : publisher.publisherName.split('').slice(0, 2).join('')}
             </div>
             <h1 className="user-name">{publisher.publisherName}</h1>
           </div>

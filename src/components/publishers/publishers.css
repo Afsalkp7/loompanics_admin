@@ -107,3 +107,6 @@
     background-color: #00000091;
   }
   
+  .avatar img {
+    border-radius: 20px;
+  }
