@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import API from '../../utils/api'; // Adjust path accordingly
-import './addProduct.css';
-import { Toast } from '@chakra-ui/react';
+import './addProduct.css'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const AddProduct = () => {
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
@@ -11,6 +12,7 @@ const AddProduct = () => {
   const [primaryImage, setPrimaryImage] = useState(null);
   const [secondaryImage, setSecondaryImage] = useState(null);
   const [thirdImage, setThirdImage] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +33,8 @@ const AddProduct = () => {
     fetchData();
   }, []);
 
-  const formik = useFormik({
+
+const formik = useFormik({
     initialValues: {
       title: '',
       primaryImage: '',
@@ -59,19 +62,12 @@ const AddProduct = () => {
       categoryId: Yup.string().required('Category is required'),
       publisherId: Yup.string().required('Publisher is required'),
       originalPrice: Yup.number().required('Original price is required').positive('Price must be positive'),
-      awards: Yup.array().of(
-        Yup.object().shape({
-          awardTitle: Yup.string().required('Award title is required'),
-          year: Yup.number().required('Year is required').positive('Year must be positive').integer('Year must be an integer'),
-        })
-      ),
       pagesNumber: Yup.number().positive('Pages must be positive').integer('Pages must be an integer'),
       language: Yup.string().required('Language is required'),
       copyType: Yup.string().required('Copy Type is required'),
     }),
     onSubmit: async (values) => {
       try {
-
         const formData = new FormData();
         formData.append('title', values.title);
         if (primaryImage) formData.append('primaryImage', primaryImage);
@@ -91,23 +87,24 @@ const AddProduct = () => {
         formData.append('pagesNumber', values.pagesNumber);
         formData.append('language', values.language);
         formData.append('copyType', values.copyType);
-
-        // Debugging: Check FormData contents
-        
-
-        const response = await API.post('/products', formData, {
+  
+        await API.post('/products', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        Toast.success('Product added successfully');
-        formik.resetForm(); // Optionally reset the form
+  
+        toast.success('Product added successfully');
+        navigate("/products")
+        
+        formik.resetForm(); // Reset form after successful submission
       } catch (err) {
         console.error('Error adding product:', err);
-        Toast.error('An error occurred. Please try again.');
+        toast.error('An error occurred while adding the product');
       }
     },
   });
+  
 
   const handleImageChange = (e, setImage) => {
     if (e.target.files && e.target.files[0]) {
@@ -160,28 +157,6 @@ const AddProduct = () => {
             name="primaryImage"
             type="file"
             onChange={(e) => handleImageChange(e, setPrimaryImage)}
-          />
-        </div>
-
-        {/* Secondary Image */}
-        <div className="form-group">
-          <label htmlFor="secondaryImage">Secondary Image</label>
-          <input
-            id="secondaryImage"
-            name="secondaryImage"
-            type="file"
-            onChange={(e) => handleImageChange(e, setSecondaryImage)}
-          />
-        </div>
-
-        {/* Third Image */}
-        <div className="form-group">
-          <label htmlFor="thirdImage">Third Image</label>
-          <input
-            id="thirdImage"
-            name="thirdImage"
-            type="file"
-            onChange={(e) => handleImageChange(e, setThirdImage)}
           />
         </div>
 
@@ -266,6 +241,28 @@ const AddProduct = () => {
           ) : null}
         </div>
 
+        {/* Secondary Image */}
+        <div className="form-group">
+          <label htmlFor="secondaryImage">Secondary Image</label>
+          <input
+            id="secondaryImage"
+            name="secondaryImage"
+            type="file"
+            onChange={(e) => handleImageChange(e, setSecondaryImage)}
+          />
+        </div>
+
+        {/* Third Image */}
+        <div className="form-group">
+          <label htmlFor="thirdImage">Third Image</label>
+          <input
+            id="thirdImage"
+            name="thirdImage"
+            type="file"
+            onChange={(e) => handleImageChange(e, setThirdImage)}
+          />
+        </div>
+
         {/* Publication Date */}
         <div className="form-group">
           <label htmlFor="publicationDate">Publication Date</label>
@@ -285,7 +282,7 @@ const AddProduct = () => {
           <input
             id="edition"
             name="edition"
-            type="text"
+            type="number"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.edition}
@@ -317,73 +314,6 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Original Price */}
-        <div className="form-group">
-          <label htmlFor="originalPrice">Original Price</label>
-          <input
-            id="originalPrice"
-            name="originalPrice"
-            type="number"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.originalPrice}
-          />
-          {formik.touched.originalPrice && formik.errors.originalPrice ? (
-            <div className="error">{formik.errors.originalPrice}</div>
-          ) : null}
-        </div>
-
-        {/* Discount */}
-        <div className="form-group">
-          <label htmlFor="discount">Discount</label>
-          <input
-            id="discount"
-            name="discount"
-            type="number"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.discount}
-          />
-        </div>
-
-        {/* Awards */}
-        {formik.values.awards.map((award, index) => (
-          <div key={index} className="award-form">
-            <div className="form-group">
-              <label htmlFor={`awardTitle-${index}`}>Award Title</label>
-              <input
-                id={`awardTitle-${index}`}
-                name={`awards[${index}].awardTitle`}
-                type="text"
-                onChange={(e) => handleAwardChange(index, 'awardTitle', e.target.value)}
-                onBlur={() => formik.setFieldTouched(`awards[${index}].awardTitle`)}
-                value={award.awardTitle}
-              />
-              {formik.touched.awards?.[index]?.awardTitle && formik.errors.awards?.[index]?.awardTitle ? (
-                <div className="error">{formik.errors.awards[index].awardTitle}</div>
-              ) : null}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor={`awardYear-${index}`}>Year</label>
-              <input
-                id={`awardYear-${index}`}
-                name={`awards[${index}].year`}
-                type="number"
-                onChange={(e) => handleAwardChange(index, 'year', e.target.value)}
-                onBlur={() => formik.setFieldTouched(`awards[${index}].year`)}
-                value={award.year}
-              />
-              {formik.touched.awards?.[index]?.year && formik.errors.awards?.[index]?.year ? (
-                <div className="error">{formik.errors.awards[index].year}</div>
-              ) : null}
-            </div>
-
-            <button type="button" onClick={() => handleRemoveAward(index)}>Remove Award</button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddAward}>Add Award</button>
-
         {/* Pages Number */}
         <div className="form-group">
           <label htmlFor="pagesNumber">Pages Number</label>
@@ -400,33 +330,97 @@ const AddProduct = () => {
         {/* Language */}
         <div className="form-group">
           <label htmlFor="language">Language</label>
-          <input
+          <select
             id="language"
             name="language"
-            type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.language}
-          />
+          >
+            <option value="">Select a Language</option>
+            <option value="English">English</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="Spanish">Spanish</option>
+            <option value="French">French</option>
+            <option value="German">German</option>
+          </select>
         </div>
 
         {/* Copy Type */}
         <div className="form-group">
           <label htmlFor="copyType">Copy Type</label>
-          <input
+          <select
             id="copyType"
             name="copyType"
-            type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.copyType}
+          >
+            <option value="">Select a Copy Type</option>
+            <option value="Hardcover">Hardcover</option>
+            <option value="Paperback">Paperback</option>
+            <option value="E-book">E-book</option>
+          </select>
+        </div>
+
+        {/* Awards */}
+        <div className="form-group">
+          <label>Awards</label>
+          {formik.values.awards.map((award, index) => (
+            <div key={index} className="award">
+              <input
+                type="text"
+                name={`awards[${index}].awardTitle`}
+                placeholder="Award Title"
+                value={award.awardTitle}
+                onChange={(e) => handleAwardChange(index, 'awardTitle', e.target.value)}
+              />
+              <input
+                type="number"
+                name={`awards[${index}].year`}
+                placeholder="Year"
+                value={award.year}
+                onChange={(e) => handleAwardChange(index, 'year', e.target.value)}
+              />
+              <button type="button" onClick={() => handleRemoveAward(index)}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddAward}>
+            Add Award
+          </button>
+        </div>
+
+        {/* Price and Discount */}
+        <div className="form-group">
+          <label htmlFor="originalPrice">Original Price</label>
+          <input
+            id="originalPrice"
+            name="originalPrice"
+            type="number"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.originalPrice}
+          />
+          {formik.touched.originalPrice && formik.errors.originalPrice ? (
+            <div className="error">{formik.errors.originalPrice}</div>
+          ) : null}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="discount">Discount</label>
+          <input
+            id="discount"
+            name="discount"
+            type="number"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.discount}
           />
         </div>
 
-        {/* Submit Button */}
-        <div className="form-group">
-          <button type="submit">Submit</button>
-        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

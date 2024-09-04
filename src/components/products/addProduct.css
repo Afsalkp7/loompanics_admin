@@ -80,7 +80,7 @@
   }
   
   button[type="submit"] {
-    background-color: #3498db;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -91,6 +91,6 @@
   }
   
   button[type="submit"]:hover {
-    background-color: #2980b9;
+    background-color: #0000008c;
   }
   
