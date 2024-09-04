@@ -16,6 +16,8 @@ import Categories from './components/categories/Categories';
 import CategoryDetail from './components/categories/CategoryDetail';
 import Publishers from './components/publishers/Publishers';
 import PublisherDetail from './components/publishers/PublisherDetail';
+import Products from './components/products/Products';
+import AddProduct from './components/products/AddProduct';
 
 
 function App() {
@@ -65,6 +67,16 @@ function App() {
             }
           />
           <Route
+            path="/add-product"
+            element={
+
+              <PrivateRoute >
+                <AddProduct />
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
             path="/authors/:_id"
             element={
 
@@ -100,6 +112,16 @@ function App() {
 
               <PrivateRoute >
                 <Publishers /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/products"
+            element={
+
+              <PrivateRoute >
+                <Products /> 
               </PrivateRoute>
                 
             }
