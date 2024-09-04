@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 
-// ICONS
-import * as FaIcons from "react-icons/fa"; //Now i get access to all the icons
-import * as AiIcons from "react-icons/ai";
-
 
 import logo from "../../assets/logo_with_bg.jpg"
 // ROUTING
@@ -14,7 +10,7 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "../../constent/sidebarData.jsx";
 
 // STYLES
-import "./Navbar.css";
+import "./navbar.css";
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(false);
