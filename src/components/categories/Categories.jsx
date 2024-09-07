@@ -124,7 +124,7 @@ const Categories = () => {
                   <td>{category._id.split('').slice(20).join('')}</td>
                   <td>{category.categoryName}</td>
                   <td>{category.description}</td>
-                  <td>{category.createdAt}</td> {/* Fixed typo from 'ceatesAt' to 'createdAt' */}
+                  <td>{category.createdAt.split("T")[0]}</td> 
                   <td>
                     <button
                       className="action-button view"
