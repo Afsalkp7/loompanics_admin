@@ -213,7 +213,13 @@ const PublisherDetail = () => {
                 </button>
                 <div className="accordion-content">
                   {publisher.books?.length > 0 ? (
-                    publisher.books.map((item, index) => <p key={index}>{item}</p>)
+                    publisher.books.map((item, index) => (
+                      <div key={index} className='booksShow' style={{ cursor: 'pointer' }}>
+                          <img src={item.primaryImageUrl} className='bookImage'/>
+                          <span className='bookTitle'>{item.title}</span>           
+                      </div>)
+                    )
+                    
                   ) : (
                     <p>No items in cart</p>
                   )}

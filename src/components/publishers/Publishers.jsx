@@ -140,7 +140,7 @@ const Publishers = () => {
                   </td>
                   <td>{publisher._id.slice(-4)}</td> {/* Display last 4 characters of ID */}
                   <td>{publisher.publisherName}</td>
-                  <td>{publisher.publisherAddress}</td>
+                  <td className="truncate">{publisher.publisherAddress}</td>
                   <td>{publisher.publisherUrl}</td>
                   <td>{new Date(publisher.createdAt).toLocaleDateString()}</td>
                   <td>

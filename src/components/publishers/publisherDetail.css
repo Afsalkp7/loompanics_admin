@@ -1,3 +1,18 @@
 .name-logo img{
     border-radius: 30px;
 }
+
+.bookTitle {
+    font-size: small;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.bookImage{
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+}
+
+.booksShow{
+    display: flex
+}

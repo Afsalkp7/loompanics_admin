@@ -112,3 +112,11 @@
     width: 40px;
     height: 40px;
   }
+
+  .truncate {
+    white-space: nowrap;        /* Prevents the text from wrapping */
+    overflow: hidden;           /* Hides the overflowing text */
+    text-overflow: ellipsis;    /* Adds the ellipsis (...) */
+    max-width: 200px;           /* Set the maximum width to fit your needs */
+  }
+  

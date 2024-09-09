@@ -82,11 +82,11 @@ const Products = () => {
                   <th></th>
                   <th>ID</th>
                   <th>Name</th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
+                  <th>Author</th>
+                  <th>Category</th>
+                  <th>Publisher</th>
+                  <th>Description</th>
+                  <th>Acrions</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,10 +106,10 @@ const Products = () => {
                       </td>
                       <td>{product._id.split('').slice(20).join('')}</td>
                       <td>{product.title }</td>
-                      <td>{product.authorId}</td>
-                      <td>{product.categoryId}</td>
-                      <td>{product.publisherId}</td>
-                      <td>{product.genres}</td>
+                      <td>{product.authorId.firstName + product.authorId.lastName}</td>
+                      <td>{product.categoryId.categoryName}</td>
+                      <td>{product.publisherId.publisherName}</td>
+                      <td className='truncate'>{product.description}</td>
                       <td>
                         <button
                           className="action-button view"

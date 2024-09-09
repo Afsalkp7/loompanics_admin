@@ -172,3 +172,33 @@
     width: 60PX;
     height: 60PX;
   }
+
+  .product-images div {
+    background: #dbdbdb9f;
+    height: 100px;
+    width: 80px;
+    border-radius: 10px;
+  }
+  .product-images {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .primaryImage img{
+    height: 100px;
+    width: 80px;
+    border-radius: 10px;
+  }
+  .seconderyImage img{
+    height: 100px;
+    width: 80px;
+    border-radius: 10px;
+  }
+  .thirdImage img{
+    height: 100px;
+    width: 80px;
+    border-radius: 10px;
+  }

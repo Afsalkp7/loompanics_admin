@@ -171,4 +171,12 @@
     background-color: #ff4d4d;
     color: white;
   }
-  
+  /* publisherDetail.css */
+.notable-work-item {
+  display: flex;
+  align-items: center;
+}
+
+.notable-work-item p {
+  margin: 0;
+}

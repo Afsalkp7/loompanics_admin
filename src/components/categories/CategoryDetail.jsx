@@ -183,7 +183,11 @@ const CategoryDetail = () => {
                 </button>
                 <div className="accordion-content">
                   {category.books?.length > 0 ? (
-                    category.books.map((item, index) => <p key={index}>{item}</p>)
+                    category.books.map((item, index) => (
+                      <div key={index} className='booksShow' style={{ cursor: 'pointer' }}>
+                          <img src={item.primaryImageUrl} className='bookImage'/>
+                          <span className='bookTitle'>{item.title}</span>           
+                      </div>))
                   ) : (
                     <p>No items in cart</p>
                   )}

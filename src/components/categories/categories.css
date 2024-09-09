@@ -106,4 +106,10 @@
   .add-category-button:hover {
     background-color: #00000091;
   }
+  .truncate {
+    white-space: nowrap;        /* Prevents the text from wrapping */
+    overflow: hidden;           /* Hides the overflowing text */
+    text-overflow: ellipsis;    /* Adds the ellipsis (...) */
+    max-width: 200px;           /* Set the maximum width to fit your needs */
+  }
   
