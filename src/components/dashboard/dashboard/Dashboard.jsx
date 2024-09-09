@@ -1,5 +1,4 @@
 import React from 'react'
-import AdminChat from '../../chat/AdminChat'
 function Dashboard() {
   return (
     <div>

@@ -18,6 +18,7 @@ import Publishers from './components/publishers/Publishers';
 import PublisherDetail from './components/publishers/PublisherDetail';
 import Products from './components/products/Products';
 import AddProduct from './components/products/AddProduct';
+import ProductDetail from './components/products/ProductDetail';
 
 
 function App() {
@@ -122,6 +123,16 @@ function App() {
 
               <PrivateRoute >
                 <Products /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/products/:_id"
+            element={
+
+              <PrivateRoute >
+                <ProductDetail /> 
               </PrivateRoute>
                 
             }

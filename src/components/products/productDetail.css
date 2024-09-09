@@ -1,4 +1,4 @@
-.user-detail-container {
+.product-detail-container {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
@@ -8,7 +8,7 @@
     margin-top: 50px;
   }
   
-  .user-hero {
+  .product-hero {
     text-align: center;
     margin-bottom: 20px;
   }
@@ -26,41 +26,38 @@
     justify-content: center;
     margin: 0 auto 10px;
   }
-  .name-logo IMG{
-    width: 60PX;
-    height: 60PX;
-  }
-  .user-name {
+  
+  .product-name {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
   }
   
-  .user-email {
+  .product-email {
     font-size: 14px;
     color: #555;
     margin: 5px 0;
   }
   
-  .user-main {
+  .product-main {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
   }
   
-  .user-info {
+  .product-info {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
   }
   
-  .user-info p {
+  .product-info p {
     margin: 8px 0;
     font-size: 14px;
   }
   
-  .user-accordion {
+  .product-accordion {
     flex: 1;
   }
   
@@ -171,4 +168,7 @@
     background-color: #ff4d4d;
     color: white;
   }
-  
+  .name-logo IMG{
+    width: 60PX;
+    height: 60PX;
+  }
