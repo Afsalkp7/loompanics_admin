@@ -12,6 +12,8 @@ const AddProduct = () => {
   const [authors, setAuthors] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [copyTypes, setCopyTypes] = useState(['Hardcover', 'Paperback', 'Ebook']); // Example options for Copy Type
+  const [languages, setLanguages] = useState(['Malayalam','English', 'Hindi' ,'Arabic','Spanish', 'French']); // Example options for Language
   const [primaryImage, setPrimaryImage] = useState(null);
   const [secondaryImage, setSecondaryImage] = useState(null);
   const [thirdImage, setThirdImage] = useState(null);
@@ -91,7 +93,6 @@ const AddProduct = () => {
         formData.append('copyType', values.copyType);
 
         if (isEditing) {
-          
           await API.put(`/products/${state.product._id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -243,7 +244,7 @@ const AddProduct = () => {
             <option value="">Select a Category</option>
             {categories.map((category) => (
               <option key={category._id} value={category._id}>
-                {category.name}
+                {category.categoryName}
               </option>
             ))}
           </select>
@@ -265,7 +266,7 @@ const AddProduct = () => {
             <option value="">Select a Publisher</option>
             {publishers.map((publisher) => (
               <option key={publisher._id} value={publisher._id}>
-                {publisher.name}
+                {publisher.publisherName}
               </option>
             ))}
           </select>
@@ -344,7 +345,7 @@ const AddProduct = () => {
 
         {/* Discount */}
         <div className="form-group">
-          <label htmlFor="discount">Discount (%)</label>
+          <label htmlFor="discount">Discount</label>
           <input
             id="discount"
             name="discount"
@@ -359,7 +360,7 @@ const AddProduct = () => {
         <div className="form-group">
           <label>Awards</label>
           {formik.values.awards.map((award, index) => (
-            <div key={index} className="award-group">
+            <div key={index} className="award">
               <input
                 type="text"
                 placeholder="Award Title"
@@ -372,14 +373,10 @@ const AddProduct = () => {
                 value={award.year}
                 onChange={(e) => handleAwardChange(index, 'year', e.target.value)}
               />
-              <button type="button" onClick={() => handleRemoveAward(index)}>
-                Remove
-              </button>
+              <button type="button" onClick={() => handleRemoveAward(index)}>Remove</button>
             </div>
           ))}
-          <button type="button" onClick={handleAddAward}>
-            Add Award
-          </button>
+          <button type="button" onClick={handleAddAward}>Add Award</button>
         </div>
 
         {/* Pages Number */}
@@ -401,14 +398,20 @@ const AddProduct = () => {
         {/* Language */}
         <div className="form-group">
           <label htmlFor="language">Language</label>
-          <input
+          <select
             id="language"
             name="language"
-            type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.language}
-          />
+          >
+            <option value="">Select a Language</option>
+            {languages.map((language) => (
+              <option key={language} value={language}>
+                {language}
+              </option>
+            ))}
+          </select>
           {formik.touched.language && formik.errors.language ? (
             <div className="error">{formik.errors.language}</div>
           ) : null}
@@ -417,20 +420,25 @@ const AddProduct = () => {
         {/* Copy Type */}
         <div className="form-group">
           <label htmlFor="copyType">Copy Type</label>
-          <input
+          <select
             id="copyType"
             name="copyType"
-            type="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.copyType}
-          />
+          >
+            <option value="">Select a Copy Type</option>
+            {copyTypes.map((copyType) => (
+              <option key={copyType} value={copyType}>
+                {copyType}
+              </option>
+            ))}
+          </select>
           {formik.touched.copyType && formik.errors.copyType ? (
             <div className="error">{formik.errors.copyType}</div>
           ) : null}
         </div>
 
-        {/* Submit Button */}
         <button type="submit">{isEditing ? 'Update Product' : 'Add Product'}</button>
       </form>
     </div>
