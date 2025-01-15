@@ -9,7 +9,7 @@ import { IoHome } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
 import { BiCategory } from "react-icons/bi";
 import { SiGradleplaypublisher } from "react-icons/si";
-
+import { GiTargetPoster } from "react-icons/gi";
 
 // Correct use of JSX in a .jsx file
 export const SidebarData = [
@@ -47,6 +47,12 @@ export const SidebarData = [
     title: "Publishers",
     path: "/publishers",
     icon: <SiGradleplaypublisher />,
+    cName: "nav-text",
+  },
+  {
+    title: "Posters",
+    path: "/posters",
+    icon: <GiTargetPoster />,
     cName: "nav-text",
   },
   {

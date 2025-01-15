@@ -19,6 +19,7 @@ import PublisherDetail from './components/publishers/PublisherDetail';
 import Products from './components/products/Products';
 import AddProduct from './components/products/AddProduct';
 import ProductDetail from './components/products/ProductDetail';
+import Posters from './components/poster/Posters';
 
 
 function App() {
@@ -153,6 +154,16 @@ function App() {
 
               <PrivateRoute >
                 <CategoryDetail /> 
+              </PrivateRoute>
+                
+            }
+          />
+          <Route
+            path="/posters"
+            element={
+
+              <PrivateRoute >
+                <Posters /> 
               </PrivateRoute>
                 
             }
