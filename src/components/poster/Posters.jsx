@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./posters.css";
 import API from "../../utils/api";
+import CustomTable from "../modules/Table";
 
 function Posters() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,6 +12,24 @@ function Posters() {
   const [error, setError] = useState(null);
   const [posters, setPosters] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Fetch posters from the API
+  const fetchPosters = async () => {
+    try {
+      const response = await API.get("/posters");
+      setPosters(response.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching posters:", err);
+      setError("Failed to fetch poster data");
+      setLoading(false);
+    }
+  };
+
+  // Initial fetch
+  useEffect(() => {
+    fetchPosters();
+  }, []);
 
   // Function to handle form submission
   const handleFormSubmit = async (e) => {
@@ -23,39 +42,84 @@ function Posters() {
     formData.append("endDate", endDate);
 
     try {
-      const response = await API.post("/posters", formData);
+      await API.post("/posters", formData);
 
-      if (!response.ok) {
-        throw new Error("Failed to add poster");
-      }
+    //   if (response.status !== 200 || response.status !== 201) {
+    //     throw new Error("Failed to add poster");
+    //   }
 
-      const result = await response.json();
-      console.log("Poster added successfully:", result);
+      // Close the modal
       setIsModalOpen(false);
-      setPosters([...posters, result]); // Update the poster list
+
+      // Reset form fields
+      setPosterTitle("");
+      setPosterImage(null);
+      setStartDate("");
+      setEndDate("");
+
+      // Re-fetch the posters
+      fetchPosters();
     } catch (err) {
       console.error("Error adding poster:", err);
       setError("Failed to add poster");
     }
   };
 
-  useEffect(() => {
-    const fetchPosters = async () => {
-      try {
-        const response = await API.get("/posters");
-        setPosters(response.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching posters:", err);
-        setError("Failed to fetch poster data");
-        setLoading(false);
-      }
-    };
-
-    fetchPosters();
-  }, []);
-
-
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "_id",
+      key: "_id",
+      render: (_id) => <span>{_id.slice(-4)}</span>,
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (image) => (
+        <img
+          src={image}
+          alt="Poster"
+          style={{ width: "80px", height: "auto", borderRadius: "8px" }}
+        />
+      ),
+    },
+    {
+      title: "Created at",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (date) => <span>{date.split("T")[0]}</span>,
+    },
+    {
+      title: "Start date",
+      dataIndex: "startDate",
+      key: "startDate",
+      render: (date) => <span>{date.split("T")[0]}</span>,
+    },
+    {
+      title: "End date",
+      dataIndex: "endDate",
+      key: "endDate",
+      render: (date) => <span>{date.split("T")[0]}</span>,
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <button
+          onClick={() => alert(`Action clicked for ${record.name}`)}
+          className="text-blue-500"
+        >
+          View Details
+        </button>
+      ),
+    },
+  ];
 
   return (
     <div className="posters-container">
@@ -73,7 +137,7 @@ function Posters() {
       {loading && <p className="loading-message">Loading Posters...</p>}
       {error && <p className="error-message">{error}</p>}
       {!loading && !error && (
-        <h1>hello</h1>
+        <CustomTable columns={columns} data={posters.posters} />
       )}
 
       {/* Modal for Adding Posters */}
