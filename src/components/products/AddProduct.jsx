@@ -58,6 +58,8 @@ const AddProduct = () => {
       pagesNumber: state?.product?.pagesNumber || '',
       language: state?.product?.language || '',
       copyType: state?.product?.copyType || '',
+      isTrending: state?.product?.isTrending || false,
+  isFeatured: state?.product?.isFeatured || false,
     },
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),
@@ -69,6 +71,8 @@ const AddProduct = () => {
       pagesNumber: Yup.number().positive('Pages must be positive').integer('Pages must be an integer'),
       language: Yup.string().required('Language is required'),
       copyType: Yup.string().required('Copy Type is required'),
+      isTrending: Yup.boolean(),
+      isFeatured: Yup.boolean(),
     }),
     onSubmit: async (values) => {
       try {
@@ -91,6 +95,8 @@ const AddProduct = () => {
         formData.append('pagesNumber', values.pagesNumber);
         formData.append('language', values.language);
         formData.append('copyType', values.copyType);
+        formData.append('isTrending', values.isTrending);
+        formData.append('isFeatured', values.isFeatured);
 
         if (isEditing) {
           await API.put(`/products/${state.product._id}`, formData, {
@@ -438,6 +444,28 @@ const AddProduct = () => {
             <div className="error">{formik.errors.copyType}</div>
           ) : null}
         </div>
+{/* Checkboxes */}
+<div className="isCheck">
+  <label>
+    <input
+      type="checkbox"
+      name="isTrending"
+      onChange={formik.handleChange}
+      checked={formik.values.isTrending}
+    />
+    Is Bestseller
+  </label>
+
+  <label>
+    <input
+      type="checkbox"
+      name="isFeatured"
+      onChange={formik.handleChange}
+      checked={formik.values.isFeatured}
+    />
+    Is Featured
+  </label>
+</div>
 
         <button type="submit">{isEditing ? 'Update Product' : 'Add Product'}</button>
       </form>

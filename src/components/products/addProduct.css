@@ -94,3 +94,13 @@
     background-color: #0000008c;
   }
   
+  .isCheck {
+    display: flex;
+    gap: 20px;
+  }
+  .isCheck label{
+    margin: 20px;
+  }
+  .isCheck label input{
+    margin: 10px;
+  }
